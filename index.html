@@ -498,10 +498,7 @@
     .accordion-panel {
       padding: 0 0.95rem 0.95rem;
       color: var(--color-text-secondary);
-      display: none;
     }
-
-    .accordion-panel.open { display: block; }
 
     .accordion-panel ul {
       margin: 0;
@@ -1352,7 +1349,6 @@
       trigger.setAttribute("aria-expanded", String(expanded));
       trigger.lastElementChild.textContent = expanded ? "Sbalit" : "Rozbalit";
       panel.hidden = !expanded;
-      panel.classList.toggle("open", expanded);
     }
 
     accordionTriggers.forEach((trigger) => {
@@ -1403,6 +1399,9 @@
     function renderQr(amount) {
       const donationUrl = buildDonationUrl(amount);
       directDonateLink.href = donationUrl;
+      if (qrCodeInstance && typeof qrCodeInstance.clear === "function") {
+        qrCodeInstance.clear();
+      }
       qrCodeContainer.innerHTML = "";
 
       qrCodeInstance = new QRCode(qrCodeContainer, {
