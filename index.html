@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gilora Pro Drom 2026 | Festival tradiční romské hudby</title>
+  <meta name="description" content="Dvoudenní festival tradiční romské hudby: 31. července – 1. srpna 2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ================================
+       Design systém
+    ================================= */
+    :root {
+      --color-primary: #8b2500;
+      --color-secondary: #d4a017;
+      --color-accent: #c0392b;
+      --color-background: #0d0500;
+      --color-surface: #1a0a00;
+      --color-surface-light: #2c1400;
+      --color-text-primary: #f5ecd7;
+      --color-text-secondary: #c9a96e;
+      --color-border: #5c2e00;
+      --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.32);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --container: 1200px;
+      --transition: 220ms ease;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      font-family: "Inter", sans-serif;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      line-height: 1.15;
+      font-family: "Playfair Display", serif;
+      letter-spacing: 0.01em;
+    }
+
+    p { margin: 0; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--container), calc(100% - 2rem));
+      margin-inline: auto;
+    }
+
+    .section {
+      position: relative;
+      padding: 4.25rem 0;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='10' viewBox='0 0 120 10'%3E%3Cdefs%3E%3Cpattern id='sep' width='24' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 5 L6 0 L12 5 L18 0 L24 5' stroke='%23d4a017' stroke-width='1.2' fill='none'/%3E%3Cpath d='M0 5 L6 10 L12 5 L18 10 L24 5' stroke='%238b2500' stroke-width='1.2' fill='none'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='120' height='10' fill='url(%23sep)'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-intro {
+      color: var(--color-text-secondary);
+      max-width: 72ch;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: linear-gradient(160deg, var(--color-surface), var(--color-surface-light));
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      padding: 0.72rem 1.15rem;
+      cursor: pointer;
+      transition: transform var(--transition), background-color var(--transition), border-color var(--transition);
+    }
+
+    .btn:focus-visible,
+    .nav-toggle:focus-visible,
+    .amount-btn:focus-visible,
+    .nav-link:focus-visible,
+    .accordion-trigger:focus-visible,
+    .program-card:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--color-secondary);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      background: var(--color-secondary);
+      color: #1c1001;
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    .btn-muted {
+      background: transparent;
+      color: var(--color-text-primary);
+      border-color: var(--color-border);
+    }
+
+    /* ================================
+       Ornamentální SVG definice
+    ================================= */
+    .ornament-defs {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* ================================
+       Navigace
+    ================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background-color var(--transition), border-color var(--transition), backdrop-filter var(--transition);
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-header.scrolled {
+      background: rgba(13, 5, 0, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom-color: var(--color-border);
+    }
+
+    .nav-wrap {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.1rem, 3.3vw, 1.45rem);
+      font-weight: 700;
+    }
+
+    .logo-mark {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--color-secondary);
+      transform: rotate(45deg);
+      position: relative;
+    }
+
+    .logo-mark::before,
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      background: var(--color-secondary);
+    }
+
+    .logo-mark::before { width: 2px; height: 100%; }
+    .logo-mark::after { width: 100%; height: 2px; }
+
+    .nav-toggle {
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      background: rgba(44, 20, 0, 0.75);
+      color: var(--color-text-primary);
+      width: 44px;
+      height: 44px;
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .nav-toggle svg { width: 20px; height: 20px; }
+
+    .nav-menu {
+      position: absolute;
+      top: calc(100% + 0.6rem);
+      right: 1rem;
+      left: 1rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.35rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 0.55rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-menu.open { display: flex; }
+
+    .nav-link {
+      display: block;
+      color: var(--color-text-primary);
+      padding: 0.72rem 0.85rem;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      background: rgba(212, 160, 23, 0.18);
+    }
+
+    /* ================================
+       Hero
+    ================================= */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      background:
+        linear-gradient(135deg, rgba(139, 37, 0, 0.8), rgba(26, 10, 0, 0.92)),
+        radial-gradient(circle at 90% 20%, rgba(212, 160, 23, 0.2), transparent 35%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cdefs%3E%3Cpattern id='romaniPattern' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cg fill='none' stroke='%23d4a017' stroke-opacity='0.25' stroke-width='1.3'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z'/%3E%3Cpath d='M15 15 L30 0 L45 15 L30 30 Z'/%3E%3Cpath d='M15 45 L30 30 L45 45 L30 60 Z'/%3E%3Cpath d='M0 30 L15 15 L30 30 L15 45 Z'/%3E%3Cpath d='M30 30 L45 15 L60 30 L45 45 Z'/%3E%3Cpath d='M0 0 L60 0 M0 60 L60 60 M0 0 L0 60 M60 0 L60 60' stroke-dasharray='3 4'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='240' height='240' fill='url(%23romaniPattern)'/%3E%3C/svg%3E");
+      background-size: auto, auto, 320px 320px;
+    }
+
+    .hero-inner {
+      padding: 7rem 0 4rem;
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-secondary);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.65rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 4.8rem);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.05rem, 3vw, 1.4rem);
+      color: var(--color-text-secondary);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-meta strong {
+      color: var(--color-secondary);
+      min-width: 78px;
+      display: inline-block;
+    }
+
+    /* ================================
+       Program
+    ================================= */
+    .program-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .day-column {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      background: rgba(26, 10, 0, 0.75);
+    }
+
+    .day-title {
+      font-size: 1.2rem;
+      color: var(--color-secondary);
+      margin-bottom: 0.95rem;
+    }
+
+    .day-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .program-card {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      border-radius: 12px;
+      color: var(--color-text-primary);
+      padding: 0.82rem 0.9rem;
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .program-card:hover {
+      border-color: var(--color-secondary);
+      transform: translateY(-1px);
+    }
+
+    .program-time {
+      font-weight: 700;
+      color: var(--color-secondary);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .program-artist {
+      display: block;
+      font-weight: 600;
+    }
+
+    .program-style {
+      display: block;
+      margin-top: 0.25rem;
+      font-size: 0.93rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* ================================
+       Místo konání
+    ================================= */
+    .venue-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .venue-card,
+    .map-card {
+      padding: 1rem;
+    }
+
+    .meta-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .map-wrap {
+      border: 1px dashed var(--color-secondary);
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 280px;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      border: 0;
+    }
+
+    /* ================================
+       Ubytování
+    ================================= */
+    .accommodation-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .acc-card {
+      padding: 1rem;
+      border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Cpath d='M25 2 L48 25 L25 48 L2 25 Z' fill='none' stroke='%23d4a017' stroke-width='2' stroke-dasharray='4 4'/%3E%3C/svg%3E") 20 round;
+      border-width: 1px;
+      border-style: solid;
+    }
+
+    .acc-top {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      color: var(--color-secondary);
+      flex-shrink: 0;
+    }
+
+    .acc-list {
+      margin: 0;
+      padding-left: 1rem;
+      color: var(--color-text-secondary);
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .acc-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    /* ================================
+       Jídlo a pití
+    ================================= */
+    .food-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .food-card {
+      padding: 1rem;
+    }
+
+    .food-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .food-open {
+      margin-top: 0.6rem;
+      color: var(--color-secondary);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* ================================
+       Doprava (accordion)
+    ================================= */
+    .accordion {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .accordion-item {
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--color-surface);
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: var(--color-text-primary);
+      padding: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .accordion-trigger span:last-child {
+      color: var(--color-secondary);
+      font-size: 0.95rem;
+    }
+
+    .accordion-panel {
+      padding: 0 0.95rem 0.95rem;
+      color: var(--color-text-secondary);
+      display: none;
+    }
+
+    .accordion-panel.open { display: block; }
+
+    .accordion-panel ul {
+      margin: 0;
+      padding-left: 1rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    /* ================================
+       Podpora
+    ================================= */
+    .support-grid {
+      display: grid;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .support-card,
+    .qr-card {
+      padding: 1rem;
+    }
+
+    .amount-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .amount-btn,
+    .custom-amount {
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-light);
+      color: var(--color-text-primary);
+      border-radius: 999px;
+      padding: 0.58rem 0.9rem;
+      font: inherit;
+    }
+
+    .amount-btn {
+      cursor: pointer;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .amount-btn.active,
+    .amount-btn:hover {
+      border-color: var(--color-secondary);
+      transform: translateY(-1px);
+    }
+
+    .support-form {
+      margin-top: 0.95rem;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .support-form label {
+      font-weight: 600;
+    }
+
+    .support-form textarea,
+    .support-form input {
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-light);
+      color: var(--color-text-primary);
+      border-radius: 10px;
+      padding: 0.6rem 0.7rem;
+      font: inherit;
+    }
+
+    .qr-wrap {
+      margin-top: 0.85rem;
+      border: 1px solid var(--color-secondary);
+      border-radius: 14px;
+      padding: 1rem;
+      background:
+        linear-gradient(rgba(44, 20, 0, 0.9), rgba(26, 10, 0, 0.9)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 2 L78 40 L40 78 L2 40 Z' fill='none' stroke='%23d4a017' stroke-opacity='0.35' stroke-width='2'/%3E%3Cpath d='M20 20 L40 10 L60 20 L70 40 L60 60 L40 70 L20 60 L10 40 Z' fill='none' stroke='%23d4a017' stroke-opacity='0.25' stroke-width='1.2'/%3E%3C/svg%3E");
+      background-size: auto, 120px 120px;
+      display: grid;
+      justify-items: center;
+      gap: 0.7rem;
+    }
+
+    .qr-label {
+      color: var(--color-text-secondary);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .qr-container {
+      min-height: 140px;
+      min-width: 140px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border-radius: 8px;
+      padding: 0.4rem;
+    }
+
+    /* ================================
+       Kontakt & footer
+    ================================= */
+    .contact-grid {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .socials {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.65rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-light);
+    }
+
+    .partner-grid {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      margin-top: 0.9rem;
+    }
+
+    .partner-tile {
+      min-height: 72px;
+      border: 1px dashed var(--color-border);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--color-text-secondary);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 1rem 0 2rem;
+      color: var(--color-text-secondary);
+      font-size: 0.92rem;
+    }
+
+    /* ================================
+       Modál bio interpreta
+    ================================= */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 5, 0, 0.7);
+      z-index: 1200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-dialog {
+      width: min(640px, 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-soft);
+      padding: 1rem;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .close-modal {
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-surface-light);
+      color: var(--color-text-primary);
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .modal-time {
+      color: var(--color-secondary);
+      font-weight: 600;
+      margin-bottom: 0.45rem;
+      display: block;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    /* ================================
+       Breakpointy
+    ================================= */
+    @media (min-width: 480px) {
+      .section { padding: 4.75rem 0; }
+      .hero-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (min-width: 768px) {
+      .nav-toggle { display: none; }
+
+      .nav-menu {
+        display: flex !important;
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        gap: 0.3rem;
+      }
+
+      .nav-link { padding: 0.45rem 0.62rem; font-size: 0.96rem; }
+
+      .program-grid,
+      .venue-grid,
+      .support-grid,
+      .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .accommodation-grid,
+      .food-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .map-wrap,
+      .map-wrap iframe { min-height: 330px; }
+    }
+
+    @media (min-width: 1200px) {
+      .accommodation-grid,
+      .food-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .nav-link { padding-inline: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG definice patternu (pro budoucí rozšíření) -->
+  <svg class="ornament-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="romani-diamonds" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M20 2 L38 20 L20 38 L2 20 Z" fill="none" stroke="#D4A017" stroke-width="1.6" />
+        <path d="M20 11 L29 20 L20 29 L11 20 Z" fill="none" stroke="#8B2500" stroke-width="1.1" stroke-dasharray="3 2" />
+      </pattern>
+    </defs>
+  </svg>
+
+  <!-- ================================
+       Header + navigace
+  ================================= -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="logo" href="#top" aria-label="Přejít na začátek stránky festivalu">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span>Gilora Pro Drom 2026</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Otevřít navigaci" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <nav class="nav-menu" id="navMenu" aria-label="Hlavní navigace">
+        <a class="nav-link" href="#program" aria-label="Přejít na sekci Program">Program</a>
+        <a class="nav-link" href="#kde" aria-label="Přejít na sekci Kde">Kde?</a>
+        <a class="nav-link" href="#ubytovani" aria-label="Přejít na sekci Ubytování">Ubytování</a>
+        <a class="nav-link" href="#jidlo" aria-label="Přejít na sekci Jídlo a pití">Jídlo</a>
+        <a class="nav-link" href="#doprava" aria-label="Přejít na sekci Doprava">Doprava</a>
+        <a class="nav-link" href="#podporte" aria-label="Přejít na sekci Podpořte nás">Podpořte nás</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================================
+         Hero
+    ================================= -->
+    <section class="hero" aria-label="Úvod festivalu">
+      <div class="container hero-inner">
+        <p class="eyebrow">Romský hudební festival</p>
+        <h1>Gilora Pro Drom</h1>
+        <p class="hero-tagline">„Dva dny živé hudby, paměti a setkání“</p>
+        <div class="hero-meta">
+          <p><strong>Datum:</strong> 31. července – 1. srpna 2026</p>
+          <p><strong>Místo:</strong> DOPLNIT_ADRESU_MISTA</p>
+        </div>
+        <a class="btn btn-primary" href="#program" aria-label="Zobrazit program festivalu">Zobrazit program</a>
+      </div>
+    </section>
+
+    <!-- ================================
+         Program
+    ================================= -->
+    <section class="section" id="program" aria-labelledby="program-title">
+      <div class="container">
+        <h2 class="section-title" id="program-title">Program – dvoudenní rozpis</h2>
+        <p class="section-intro">Program je generovaný z dat v JavaScriptu, takže změny interpretů, časů i popisů zvládnete rychle bez zásahu do HTML.</p>
+        <div class="program-grid" id="programGrid" aria-live="polite"></div>
+        <!-- Při budoucím přidání fotek interpretů použijte loading="lazy" pro optimalizaci výkonu. -->
+      </div>
+    </section>
+
+    <!-- ================================
+         Místo konání
+    ================================= -->
+    <section class="section" id="kde" aria-labelledby="venue-title">
+      <div class="container">
+        <h2 class="section-title" id="venue-title">Místo konání</h2>
+        <p class="section-intro">Festival proběhne ve venkovním prostoru s historickou atmosférou a dostatečným zázemím pro hudební program i komunitní setkávání.</p>
+        <div class="venue-grid">
+          <article class="card venue-card">
+            <h3>DOPLNIT_NAZEV_MISTA</h3>
+            <p style="margin-top: 0.45rem; color: var(--color-text-secondary);">Adresa: DOPLNIT_ADRESU_MISTA</p>
+            <p style="margin-top: 0.8rem;">Historické nádvoří/park s venkovním pódiem, odpočinkovou zónou a stánky. Prostor je otevřený, přehledný a přístupný pro rodiny i seniory.</p>
+            <ul class="meta-list">
+              <li><strong>Pátek (31. 7.):</strong> otevřeno 15:00–23:30</li>
+              <li><strong>Sobota (1. 8.):</strong> otevřeno 13:00–23:30</li>
+            </ul>
+          </article>
+          <article class="card map-card">
+            <h3>Mapa a příjezd</h3>
+            <p style="margin-top: 0.5rem; color: var(--color-text-secondary);">Do atributu <code>src</code> vložte vlastní odkaz z Google Maps (sdílení → vložit mapu).</p>
+            <div class="map-wrap" style="margin-top: 0.8rem;">
+              <iframe
+                title="Mapa místa konání"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=DOPLNIT_ODKAZ_NA_MAPU&output=embed"></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================
+         Ubytování
+    ================================= -->
+    <section class="section" id="ubytovani" aria-labelledby="accommodation-title">
+      <div class="container">
+        <h2 class="section-title" id="accommodation-title">Ubytování</h2>
+        <p class="section-intro">Možnosti přespání jsou připravené v různých cenových kategoriích od kempu po hotelové ubytování.</p>
+        <div class="accommodation-grid">
+          <article class="card acc-card">
+            <div class="acc-top">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 19h18M5 19V9l7-5 7 5v10M9 19v-5h6v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Kempování na místě</h3>
+            </div>
+            <ul class="acc-list">
+              <li>Cena za noc: DOPLNIT_CENU_KEMPU</li>
+              <li>Kapacita: DOPLNIT_KAPACITU_STANU</li>
+              <li>Vybavení: sociální zázemí, sprchy DOPLNIT_ANO_NE</li>
+              <li>Rezervace: DOPLNIT_KONTAKT_NA_REZERVACI</li>
+            </ul>
+            <div class="acc-actions">
+              <a class="btn btn-primary" href="#" aria-label="Rezervovat kempování">Rezervovat</a>
+              <a class="btn btn-muted" href="#" aria-label="Zjistit více o kempování">Zjistit více</a>
+            </div>
+          </article>
+
+          <article class="card acc-card">
+            <div class="acc-top">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 20h18M5 20V6h14v14M9 10h2m4 0h2M9 14h2m4 0h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Ubytovny / hostely</h3>
+            </div>
+            <ul class="acc-list">
+              <li>DOPLNIT_HOSTEL_1 · vzdálenost DOPLNIT · od DOPLNIT_CENY</li>
+              <li>DOPLNIT_HOSTEL_2 · vzdálenost DOPLNIT · od DOPLNIT_CENY</li>
+              <li>DOPLNIT_HOSTEL_3 · vzdálenost DOPLNIT · od DOPLNIT_CENY</li>
+            </ul>
+            <div class="acc-actions">
+              <a class="btn btn-primary" href="#" aria-label="Rezervovat hostel">Rezervovat</a>
+              <a class="btn btn-muted" href="#" aria-label="Zjistit více o hostelech">Zjistit více</a>
+            </div>
+          </article>
+
+          <article class="card acc-card">
+            <div class="acc-top">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19h16M6 19v-6h12v6M4 13l8-8 8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Hotely</h3>
+            </div>
+            <ul class="acc-list">
+              <li>DOPLNIT_HOTEL_1 · vzdálenost DOPLNIT · od DOPLNIT_CENY</li>
+              <li>DOPLNIT_HOTEL_2 · vzdálenost DOPLNIT · od DOPLNIT_CENY</li>
+            </ul>
+            <div class="acc-actions">
+              <a class="btn btn-primary" href="#" aria-label="Rezervovat hotel">Rezervovat</a>
+              <a class="btn btn-muted" href="#" aria-label="Zjistit více o hotelích">Zjistit více</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================
+         Jídlo a pití
+    ================================= -->
+    <section class="section" id="jidlo" aria-labelledby="food-title">
+      <div class="container">
+        <h2 class="section-title" id="food-title">Jídlo a pití</h2>
+        <p class="section-intro">Výběr stánků pokrývá tradiční romskou kuchyni, vegetariánské varianty, gril i dezerty. V areálu najdete nealko zónu i bar.</p>
+        <div class="food-grid">
+          <article class="card food-card">
+            <div class="food-header">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4v7m3-7v7M5 11h4M14 4h5v7a3 3 0 0 1-3 3h-2V4Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Romská kuchyně</h3>
+            </div>
+            <p>Teplá jídla inspirovaná romskou tradicí, domácí pečivo a sezonní suroviny.</p>
+            <p class="food-open">Otevřeno: 15:00–22:30 (pá), 13:30–22:30 (so)</p>
+          </article>
+
+          <article class="card food-card">
+            <div class="food-header">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13c3 0 3-4 6-4s3 4 6 4 3-4 4-4M4 20h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Vegetariánské menu</h3>
+            </div>
+            <p>Zeleninové talíře, bezmasé speciality a alergeny přátelské varianty na vyžádání.</p>
+            <p class="food-open">Otevřeno: 15:00–21:30 (pá), 13:00–21:30 (so)</p>
+          </article>
+
+          <article class="card food-card">
+            <div class="food-header">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 18h14M7 18V9h10v9M9 9V6h6v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Gril & dezerty</h3>
+            </div>
+            <p>Večerní grilování, sladké pečivo a dezerty. Ceny orientačně: DOPLNIT_ORIENTACNI_CENY.</p>
+            <p class="food-open">Otevřeno: 16:00–23:00 (pá), 14:00–23:00 (so)</p>
+          </article>
+
+          <article class="card food-card">
+            <div class="food-header">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 4h8l-1 8H9L8 4Zm4 8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Nealko zóna</h3>
+            </div>
+            <p>Voda, limonády, káva a čaje. Vhodné pro děti i řidiče.</p>
+            <p class="food-open">Otevřeno: po celou dobu programu</p>
+          </article>
+
+          <article class="card food-card">
+            <div class="food-header">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 3h4v6a2 2 0 0 1-2 2 2 2 0 0 1-2-2V3Zm-4 9h12v9H6v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <h3>Bar</h3>
+            </div>
+            <p>Míchané i nemíchané nápoje, lokální produkce. Ověření věku při nákupu alkoholu.</p>
+            <p class="food-open">Otevřeno: 17:00–23:30 (pá), 16:00–23:30 (so)</p>
+          </article>
+
+          <article class="card food-card">
+            <div class="food-header">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16M7 6h10M7 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <h3>Praktické informace</h3>
+            </div>
+            <p>Alergeny: personál jednotlivých stánků poskytne detailní informace na místě. Platby: hotovost + karta DOPLNIT_UPRESNENI_PLATEB.</p>
+            <p class="food-open">Tip: mějte připravenou menší hotovost pro rychlejší odbavení</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================
+         Doprava
+    ================================= -->
+    <section class="section" id="doprava" aria-labelledby="transport-title">
+      <div class="container">
+        <h2 class="section-title" id="transport-title">Doprava</h2>
+        <p class="section-intro">Vyberte si nejvhodnější způsob příjezdu. Jednotlivé bloky lze rozbalit klávesnicí i myší.</p>
+        <div class="accordion" id="transportAccordion">
+          <article class="accordion-item">
+            <button class="accordion-trigger" aria-label="Rozbalit informace o dopravě autem" aria-expanded="false" aria-controls="panel-auto" id="trigger-auto">
+              <span>Vlastní auto</span><span>Rozbalit</span>
+            </button>
+            <div class="accordion-panel" id="panel-auto" role="region" aria-labelledby="trigger-auto" hidden>
+              <ul>
+                <li>GPS/adresa: DOPLNIT_GPS_NEBO_ADRESU</li>
+                <li>Parkování: DOPLNIT_KAPACITU_CENU_A_VZDALENOST</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="accordion-item">
+            <button class="accordion-trigger" aria-label="Rozbalit informace o veřejné dopravě" aria-expanded="false" aria-controls="panel-public" id="trigger-public">
+              <span>Veřejná doprava</span><span>Rozbalit</span>
+            </button>
+            <div class="accordion-panel" id="panel-public" role="region" aria-labelledby="trigger-public" hidden>
+              <ul>
+                <li>Nejbližší zastávka: DOPLNIT_ZASTAVKU</li>
+                <li>Frekvence spojů: DOPLNIT_FREKVENCI</li>
+                <li>Jízdní řád: <a href="#" style="color: var(--color-secondary); text-decoration: underline;" aria-label="Otevřít jízdní řád">DOPLNIT_ODKAZ_NA_JIZDNI_RAD</a></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="accordion-item">
+            <button class="accordion-trigger" aria-label="Rozbalit informace o dopravě na kole nebo pěšky" aria-expanded="false" aria-controls="panel-bike" id="trigger-bike">
+              <span>Kolo / pěšky</span><span>Rozbalit</span>
+            </button>
+            <div class="accordion-panel" id="panel-bike" role="region" aria-labelledby="trigger-bike" hidden>
+              <ul>
+                <li>Vzdálenost z centra: DOPLNIT_VZDALENOST</li>
+                <li>Stojany na kola: DOPLNIT_ANO_NE</li>
+                <li>Doporučená trasa: <a href="#" style="color: var(--color-secondary); text-decoration: underline;" aria-label="Otevřít trasu pro kolo">DOPLNIT_ODKAZ_NA_CYKLOTRASU</a></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================
+         Podpořte nás
+    ================================= -->
+    <section class="section" id="podporte" aria-labelledby="support-title">
+      <div class="container">
+        <h2 class="section-title" id="support-title">Podpořte nás</h2>
+        <p class="section-intro">Festival vzniká komunitně a bez velkých produkčních struktur. Vaše podpora pomáhá financovat honoráře hudebníků, technické zázemí i otevřený program pro veřejnost.</p>
+
+        <div class="support-grid">
+          <article class="card support-card">
+            <h3>Zvolte částku</h3>
+            <div class="amount-list" id="amountList">
+              <button class="amount-btn active" data-amount="100" aria-label="Darovat 100 korun">100 Kč</button>
+              <button class="amount-btn" data-amount="250" aria-label="Darovat 250 korun">250 Kč</button>
+              <button class="amount-btn" data-amount="500" aria-label="Darovat 500 korun">500 Kč</button>
+              <input class="custom-amount" type="number" min="1" step="1" placeholder="Vlastní částka" id="customAmount" aria-label="Zadat vlastní částku v korunách" />
+            </div>
+
+            <form class="support-form" aria-label="Volitelný vzkaz dárce">
+              <label for="message">Vzkaz dárce (volitelné):</label>
+              <textarea id="message" rows="4" placeholder="Děkujeme, že podporujete živou hudbu."></textarea>
+              <p style="color: var(--color-text-secondary); font-size: 0.92rem;">Pole je pouze uživatelské rozhraní bez odesílání na server.</p>
+            </form>
+
+            <a class="btn btn-muted" id="directDonate" href="https://darujme.cz/DOPLNIT_ODKAZ_PLATEBNI_BRANY" target="_blank" rel="noopener noreferrer" aria-label="Otevřít platební bránu v novém okně">Otevřít platební bránu</a>
+          </article>
+
+          <article class="card qr-card">
+            <h3>QR platba</h3>
+            <div class="qr-wrap">
+              <p class="qr-label">Naskenujte QR kód v bankovní aplikaci. URL se aktualizuje podle zvolené částky.</p>
+              <div id="qrCode" class="qr-container" aria-label="QR kód pro dar" role="img"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================
+         Kontakt
+    ================================= -->
+    <section class="section" id="kontakt" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 class="section-title" id="contact-title">Kontakt</h2>
+        <p class="section-intro">Pro dotazy k programu, dobrovolnictví nebo spolupráci napište pořadatelskému týmu.</p>
+
+        <div class="contact-grid">
+          <article class="card" style="padding: 1rem;">
+            <h3>Organizační kontakt</h3>
+            <p style="margin-top: 0.55rem;">Email: <a href="mailto:DOPLNIT_KONTAKTNI_EMAIL" style="color: var(--color-secondary); text-decoration: underline;" aria-label="Napsat email pořadatelům">DOPLNIT_KONTAKTNI_EMAIL</a></p>
+            <div class="socials">
+              <a class="social-link" href="https://facebook.com/DOPLNIT_SOCIAL" target="_blank" rel="noopener noreferrer" aria-label="Otevřít Facebook festivalu">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H7v4h3v5h4v-5h3l1-4h-4V9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                Facebook
+              </a>
+              <a class="social-link" href="https://instagram.com/DOPLNIT_SOCIAL" target="_blank" rel="noopener noreferrer" aria-label="Otevřít Instagram festivalu">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+                Instagram
+              </a>
+            </div>
+          </article>
+
+          <article class="card" style="padding: 1rem;">
+            <h3>Partneři</h3>
+            <p style="margin-top: 0.55rem; color: var(--color-text-secondary);">Prostor pro loga partnerů a sponzorů.</p>
+            <div class="partner-grid" aria-label="Dlaždice partnerů">
+              <div class="partner-tile">Logo partnera</div>
+              <div class="partner-tile">Logo partnera</div>
+              <div class="partner-tile">Logo partnera</div>
+              <div class="partner-tile">Logo partnera</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Gilora Pro Drom · Festival tradiční romské hudby · Všechna práva vyhrazena.</div>
+  </footer>
+
+  <!-- ================================
+       Modál bio
+  ================================= -->
+  <div class="modal" id="bioModal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <div class="modal-head">
+        <div>
+          <h3 id="modalTitle">Bio interpreta</h3>
+          <span class="modal-time" id="modalTime"></span>
+        </div>
+        <button class="close-modal" id="closeModal" aria-label="Zavřít okno s bio">✕</button>
+      </div>
+      <p id="modalGenre" style="color: var(--color-secondary); font-weight: 600; margin-bottom: 0.55rem;"></p>
+      <p id="modalBio"></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    /* ================================
+       Data (snadná editace)
+    ================================= */
+    const programData = [
+      {
+        dayLabel: "Den 1 – pátek 31. července",
+        entries: [
+          {
+            time: "16:00",
+            artist: "Interpret 1",
+            genre: "Tradiční romská hudba – housle a cimbál",
+            bio: "Soubor zaměřený na tradiční repertoár romských písní ve středoevropské interpretaci s důrazem na akustický zvuk."
+          },
+          {
+            time: "17:30",
+            artist: "Interpret 2",
+            genre: "Flamenco-romský fusion",
+            bio: "Projekt propojuje rytmiku flamenca s romským zpěvem a improvizovanými pasážemi kytary a perkusí."
+          },
+          {
+            time: "19:00",
+            artist: "Přestávka",
+            genre: "—",
+            bio: "Čas na občerstvení, setkání s komunitou a přípravu večerního bloku."
+          },
+          {
+            time: "20:00",
+            artist: "Interpret 3 – večerní headliner",
+            genre: "Balkánský brass + romské písně",
+            bio: "Večerní hlavní koncert energického ansámblu kombinujícího dechovou sekci, tradiční melodie a současné aranže."
+          },
+          {
+            time: "22:00",
+            artist: "Jam session – otevřené pódium",
+            genre: "Vstup volný pro hudebníky",
+            bio: "Otevřené pódium pro muzikanty napříč generacemi; přineste vlastní nástroj a zapojte se."
+          }
+        ]
+      },
+      {
+        dayLabel: "Den 2 – sobota 1. srpna",
+        entries: [
+          {
+            time: "14:00",
+            artist: "Workshop: romský tanec",
+            genre: "Pro veřejnost, zdarma",
+            bio: "Interaktivní workshop vedený lektory tradičního tance, vhodný pro začátečníky i pokročilé."
+          },
+          {
+            time: "16:00",
+            artist: "Interpret 4",
+            genre: "Romská klasika – akusticky",
+            bio: "Akustický program skladeb z rodinné hudební tradice v intimním pódiovém uspořádání."
+          },
+          {
+            time: "17:30",
+            artist: "Interpret 5",
+            genre: "Mladí interpreti – soutěžní přehlídka",
+            bio: "Blok mladých talentů s porotou a veřejným hlasováním během odpoledního programu."
+          },
+          {
+            time: "19:00",
+            artist: "Přestávka",
+            genre: "—",
+            bio: "Prostor na občerstvení, oddech a přípravu závěrečného večerního programu."
+          },
+          {
+            time: "20:30",
+            artist: "Headliner – sobota",
+            genre: "Romský orchestr",
+            bio: "Závěrečný koncert orchestru se širokým repertoárem od tradičních skladeb po současné autorské kompozice."
+          },
+          {
+            time: "23:00",
+            artist: "Konec programu",
+            genre: "—",
+            bio: "Oficiální ukončení festivalového programu a poděkování návštěvníkům."
+          }
+        ]
+      }
+    ];
+
+    const donationBaseUrl = "https://darujme.cz/DOPLNIT_ODKAZ_PLATEBNI_BRANY";
+
+    /* ================================
+       Render programu
+    ================================= */
+    const programGrid = document.getElementById("programGrid");
+
+    function renderProgram() {
+      programGrid.innerHTML = "";
+      programData.forEach((day, dayIndex) => {
+        const col = document.createElement("article");
+        col.className = "day-column";
+
+        const heading = document.createElement("h3");
+        heading.className = "day-title";
+        heading.textContent = day.dayLabel;
+        col.appendChild(heading);
+
+        const list = document.createElement("ul");
+        list.className = "day-list";
+
+        day.entries.forEach((item, itemIndex) => {
+          const li = document.createElement("li");
+          const btn = document.createElement("button");
+          btn.className = "program-card";
+          btn.type = "button";
+          btn.setAttribute("aria-label", `Zobrazit bio: ${item.artist} v ${item.time}`);
+          btn.dataset.day = String(dayIndex);
+          btn.dataset.entry = String(itemIndex);
+          btn.innerHTML = `
+            <span class="program-time">${item.time}</span>
+            <span class="program-artist">${item.artist}</span>
+            <span class="program-style">${item.genre}</span>
+          `;
+          li.appendChild(btn);
+          list.appendChild(li);
+        });
+
+        col.appendChild(list);
+        programGrid.appendChild(col);
+      });
+    }
+
+    /* ================================
+       Sticky nav + mobilní menu
+    ================================= */
+    const siteHeader = document.querySelector(".site-header");
+    const navToggle = document.getElementById("navToggle");
+    const navMenu = document.getElementById("navMenu");
+
+    function onScrollHeader() {
+      siteHeader.classList.toggle("scrolled", window.scrollY > 24);
+    }
+
+    onScrollHeader();
+    window.addEventListener("scroll", onScrollHeader, { passive: true });
+
+    navToggle.addEventListener("click", () => {
+      const isOpen = navMenu.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Zavřít navigaci" : "Otevřít navigaci");
+    });
+
+    navMenu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth < 768) {
+          navMenu.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+          navToggle.setAttribute("aria-label", "Otevřít navigaci");
+        }
+      });
+    });
+
+    /* ================================
+       Modál bio interpretů
+    ================================= */
+    const bioModal = document.getElementById("bioModal");
+    const modalDialog = bioModal.querySelector(".modal-dialog");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalTime = document.getElementById("modalTime");
+    const modalGenre = document.getElementById("modalGenre");
+    const modalBio = document.getElementById("modalBio");
+    const closeModalBtn = document.getElementById("closeModal");
+    let lastFocusedElement = null;
+
+    function openModal(item) {
+      lastFocusedElement = document.activeElement;
+      modalTitle.textContent = item.artist;
+      modalTime.textContent = item.time;
+      modalGenre.textContent = item.genre;
+      modalBio.textContent = item.bio;
+      bioModal.classList.add("open");
+      bioModal.setAttribute("aria-hidden", "false");
+      modalDialog.focus();
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      bioModal.classList.remove("open");
+      bioModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    }
+
+    programGrid.addEventListener("click", (event) => {
+      const card = event.target.closest(".program-card");
+      if (!card) return;
+      const day = Number(card.dataset.day);
+      const entry = Number(card.dataset.entry);
+      const item = programData[day]?.entries?.[entry];
+      if (item) openModal(item);
+    });
+
+    closeModalBtn.addEventListener("click", closeModal);
+
+    bioModal.addEventListener("click", (event) => {
+      if (event.target === bioModal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && bioModal.classList.contains("open")) {
+        closeModal();
+      }
+    });
+
+    /* ================================
+       Accordion dopravy
+    ================================= */
+    const accordionTriggers = document.querySelectorAll(".accordion-trigger");
+
+    function setAccordion(trigger, expanded) {
+      const panel = document.getElementById(trigger.getAttribute("aria-controls"));
+      trigger.setAttribute("aria-expanded", String(expanded));
+      trigger.lastElementChild.textContent = expanded ? "Sbalit" : "Rozbalit";
+      panel.hidden = !expanded;
+      panel.classList.toggle("open", expanded);
+    }
+
+    accordionTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+        setAccordion(trigger, !isExpanded);
+      });
+
+      trigger.addEventListener("keydown", (event) => {
+        const triggers = Array.from(accordionTriggers);
+        const currentIndex = triggers.indexOf(trigger);
+
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          triggers[(currentIndex + 1) % triggers.length].focus();
+        }
+        if (event.key === "ArrowUp") {
+          event.preventDefault();
+          triggers[(currentIndex - 1 + triggers.length) % triggers.length].focus();
+        }
+        if (event.key === "Home") {
+          event.preventDefault();
+          triggers[0].focus();
+        }
+        if (event.key === "End") {
+          event.preventDefault();
+          triggers[triggers.length - 1].focus();
+        }
+      });
+    });
+
+    /* ================================
+       QR generátor podpory
+    ================================= */
+    const amountButtons = Array.from(document.querySelectorAll(".amount-btn"));
+    const customAmountInput = document.getElementById("customAmount");
+    const qrCodeContainer = document.getElementById("qrCode");
+    const directDonateLink = document.getElementById("directDonate");
+    let selectedAmount = 100;
+    let qrCodeInstance = null;
+
+    function buildDonationUrl(amount) {
+      const parsed = Number(amount);
+      const finalAmount = Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : 100;
+      return `${donationBaseUrl}?amount=${encodeURIComponent(finalAmount)}`;
+    }
+
+    function renderQr(amount) {
+      const donationUrl = buildDonationUrl(amount);
+      directDonateLink.href = donationUrl;
+      qrCodeContainer.innerHTML = "";
+
+      qrCodeInstance = new QRCode(qrCodeContainer, {
+        text: donationUrl,
+        width: 132,
+        height: 132,
+        colorDark: "#1A0A00",
+        colorLight: "#F5ECD7",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    amountButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        amountButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        const amount = Number(button.dataset.amount);
+        selectedAmount = amount;
+        customAmountInput.value = "";
+        renderQr(selectedAmount);
+      });
+    });
+
+    customAmountInput.addEventListener("input", () => {
+      amountButtons.forEach((btn) => btn.classList.remove("active"));
+      const amount = Number(customAmountInput.value);
+      selectedAmount = Number.isFinite(amount) && amount > 0 ? amount : 100;
+      renderQr(selectedAmount);
+    });
+
+    /* ================================
+       Init
+    ================================= */
+    renderProgram();
+    renderQr(selectedAmount);
+  </script>
+</body>
+</html>
