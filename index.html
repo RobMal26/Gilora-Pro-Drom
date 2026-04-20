@@ -1,0 +1,1258 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gilora Pro Drom 2026 | Romský hudební festival</title>
+  <meta name="description" content="Dvoudenní festival tradiční romské hudby Gilora Pro Drom: program, doprava, ubytování, jídlo a podpora komunitního projektu." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --color-primary: #8B2500;
+      --color-secondary: #D4A017;
+      --color-accent: #C0392B;
+      --color-background: #0D0500;
+      --color-surface: #1A0A00;
+      --color-surface-light: #2C1400;
+      --color-text-primary: #F5ECD7;
+      --color-text-secondary: #C9A96E;
+      --color-border: #5C2E00;
+      --shadow-strong: 0 20px 50px rgba(0, 0, 0, 0.4);
+      --radius: 14px;
+      --container: min(1180px, 92vw);
+      --focus: 0 0 0 3px rgba(212, 160, 23, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--color-background);
+      color: var(--color-text-primary);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: var(--container);
+      margin: 0 auto;
+    }
+
+    .section {
+      position: relative;
+      padding: 4.5rem 0;
+      overflow: hidden;
+    }
+
+    .section-title {
+      margin: 0 0 0.75rem;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: 0.01em;
+    }
+
+    .section-lead {
+      margin: 0 0 2rem;
+      color: var(--color-text-secondary);
+      max-width: 70ch;
+    }
+
+    .divider {
+      height: 36px;
+      margin-top: -1px;
+    }
+
+    .ornament-border {
+      position: relative;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-strong);
+      overflow: hidden;
+    }
+
+    .ornament-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(212, 160, 23, 0.25);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    :focus-visible {
+      outline: none;
+      box-shadow: var(--focus);
+      border-radius: 8px;
+    }
+
+    /* Header + Nav */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      transition: background 0.25s ease, border-color 0.25s ease;
+      border-bottom: 1px solid transparent;
+      background: rgba(13, 5, 0, 0.2);
+      backdrop-filter: blur(6px);
+    }
+
+    .site-header.scrolled {
+      background: rgba(13, 5, 0, 0.95);
+      border-color: var(--color-border);
+    }
+
+    .nav-wrap {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+      font-weight: 800;
+      color: var(--color-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .menu-toggle {
+      appearance: none;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-light);
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--color-text-primary);
+      cursor: pointer;
+    }
+
+    .menu-toggle span,
+    .menu-toggle::before,
+    .menu-toggle::after {
+      content: '';
+      width: 18px;
+      height: 2px;
+      background: var(--color-text-primary);
+      display: block;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .menu-toggle span {
+      margin: 4px 0;
+    }
+
+    .menu-toggle[aria-expanded='true']::before {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded='true'] span {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded='true']::after {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .menu {
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--color-background);
+      border-bottom: 1px solid var(--color-border);
+      padding: 1rem 4vw 1.2rem;
+      display: grid;
+      gap: 0.5rem;
+      transform-origin: top;
+      transform: scaleY(0);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .menu.open {
+      transform: scaleY(1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .menu a {
+      color: var(--color-text-primary);
+      font-weight: 600;
+      padding: 0.45rem 0.3rem;
+      border-radius: 6px;
+    }
+
+    .menu a:hover,
+    .menu a:focus-visible {
+      color: var(--color-secondary);
+      background: rgba(212, 160, 23, 0.1);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      position: relative;
+      isolation: isolate;
+      background: linear-gradient(180deg, rgba(139, 37, 0, 0.35), rgba(13, 5, 0, 0.6));
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.2;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      padding: 6.5rem 0 4rem;
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.3rem, 7.2vw, 5rem);
+      line-height: 1.06;
+      margin: 0 0 1rem;
+      text-wrap: balance;
+    }
+
+    .hero .tagline {
+      font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+      margin: 0 0 1rem;
+      color: var(--color-text-primary);
+      font-weight: 500;
+    }
+
+    .hero-meta {
+      color: var(--color-text-secondary);
+      margin-bottom: 2rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(212, 160, 23, 0.7);
+      border-radius: 999px;
+      background: var(--color-secondary);
+      color: #2f1600;
+      font-weight: 700;
+      padding: 0.8rem 1.3rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(212, 160, 23, 0.28);
+    }
+
+    /* Program */
+    .program-grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .day-card {
+      padding: 1.2rem;
+    }
+
+    .day-title {
+      margin: 0 0 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      color: var(--color-secondary);
+    }
+
+    .program-list {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .program-item {
+      display: grid;
+      gap: 0.35rem;
+      padding: 0.85rem;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      background: var(--color-surface-light);
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+    }
+
+    .program-item:hover,
+    .program-item:focus-visible {
+      border-color: var(--color-secondary);
+      background: #392000;
+    }
+
+    .program-time {
+      color: var(--color-secondary);
+      font-weight: 700;
+      font-size: 0.96rem;
+    }
+
+    .program-name {
+      font-weight: 700;
+    }
+
+    .program-genre {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* Generic cards */
+    .cards-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .info-card {
+      padding: 1.1rem;
+    }
+
+    .info-card h3 {
+      margin: 0 0 0.65rem;
+      font-size: 1.1rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .meta-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.35rem;
+      color: var(--color-text-secondary);
+      font-size: 0.96rem;
+    }
+
+    .chip-btn,
+    .card-btn {
+      appearance: none;
+      border: 1px solid var(--color-border);
+      background: #3b1e00;
+      color: var(--color-text-primary);
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chip-btn:hover,
+    .card-btn:hover {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+    }
+
+    .icon-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .icon-heading svg {
+      width: 24px;
+      height: 24px;
+      color: var(--color-secondary);
+      flex-shrink: 0;
+    }
+
+    /* Location */
+    .location-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .map-wrap {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 280px;
+      background: #140900;
+    }
+
+    .map-wrap iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      border: 0;
+    }
+
+    /* Food */
+    .food-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    /* Transport accordion */
+    .accordion {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .accordion-item {
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--color-surface);
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: var(--color-surface-light);
+      color: var(--color-text-primary);
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .accordion-trigger span:last-child {
+      color: var(--color-secondary);
+      font-size: 1.2rem;
+    }
+
+    .accordion-panel {
+      padding: 0 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+
+    .accordion-panel p {
+      margin: 1rem 0;
+      color: var(--color-text-secondary);
+    }
+
+    /* Support */
+    .support-grid {
+      display: grid;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .amounts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+    }
+
+    .amount-btn {
+      appearance: none;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-light);
+      color: var(--color-text-primary);
+      border-radius: 999px;
+      padding: 0.45rem 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .amount-btn.active,
+    .amount-btn:hover {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+    }
+
+    .input {
+      width: 100%;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      background: #2b1200;
+      color: var(--color-text-primary);
+      padding: 0.65rem 0.75rem;
+      font: inherit;
+    }
+
+    .support-note {
+      color: var(--color-text-secondary);
+      font-size: 0.92rem;
+      margin-top: 0.7rem;
+    }
+
+    .qr-frame {
+      padding: 1.2rem;
+      display: grid;
+      place-items: center;
+      gap: 0.9rem;
+      text-align: center;
+    }
+
+    #qrcode {
+      background: #fff;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 2px solid var(--color-secondary);
+      min-height: 160px;
+      min-width: 160px;
+      display: grid;
+      place-items: center;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 2.2rem 0 2.8rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .socials {
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    .social-link {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      display: grid;
+      place-items: center;
+      background: var(--color-surface-light);
+    }
+
+    .social-link:hover {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+    }
+
+    .partners {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .partner-tile {
+      min-height: 70px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed var(--color-border);
+      border-radius: 10px;
+      color: var(--color-text-secondary);
+      font-size: 0.85rem;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(560px, 100%);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: 1.1rem;
+      position: relative;
+    }
+
+    .modal-close {
+      appearance: none;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-light);
+      color: var(--color-text-primary);
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+    }
+
+    .modal-title {
+      margin: 0 2.2rem 0.2rem 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+    }
+
+    .modal-sub {
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+
+    /* Breakpoints */
+    @media (min-width: 480px) {
+      .day-card,
+      .info-card {
+        padding: 1.25rem;
+      }
+
+      .hero-content {
+        padding-top: 7rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .menu {
+        position: static;
+        display: flex;
+        gap: 0.25rem;
+        align-items: center;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        border: 0;
+        background: transparent;
+        padding: 0;
+      }
+
+      .program-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .food-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .location-grid,
+      .support-grid,
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .cards-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .food-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .section {
+        padding: 5.3rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Inline SVG definitions for ornamental motifs -->
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute; left:-9999px; overflow:hidden;">
+    <defs>
+      <pattern id="romaniPattern" width="44" height="44" patternUnits="userSpaceOnUse">
+        <rect width="44" height="44" fill="none"></rect>
+        <path d="M22 2L42 22L22 42L2 22Z" stroke="#D4A017" stroke-width="1.2" fill="none" opacity="0.75"/>
+        <path d="M22 10L34 22L22 34L10 22Z" stroke="#C0392B" stroke-width="1" fill="none" opacity="0.75"/>
+        <path d="M0 22H10M34 22H44M22 0V10M22 34V44" stroke="#D4A017" stroke-width="1" stroke-dasharray="2 2" opacity="0.7"/>
+        <path d="M14 14L22 22L30 14M14 30L22 22L30 30" stroke="#8B2500" stroke-width="1.4" fill="none" opacity="0.85"/>
+      </pattern>
+    </defs>
+  </svg>
+
+  <!-- Header / Navigation -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="logo" href="#top" aria-label="Přejít na začátek stránky">Gilora Pro Drom</a>
+      <button id="menuToggle" class="menu-toggle" aria-label="Otevřít navigaci" aria-expanded="false" aria-controls="mainMenu">
+        <span></span>
+      </button>
+      <nav id="mainMenu" class="menu" aria-label="Hlavní navigace">
+        <a href="#program">Program</a>
+        <a href="#misto">Kde?</a>
+        <a href="#ubytovani">Ubytování</a>
+        <a href="#jidlo">Jídlo</a>
+        <a href="#doprava">Doprava</a>
+        <a href="#podporte">Podpořte nás</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="heroHeading">
+    <svg class="hero-pattern" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
+      <rect width="100" height="100" fill="url(#romaniPattern)"></rect>
+    </svg>
+    <div class="container hero-content">
+      <h1 id="heroHeading">Gilora Pro Drom 2026</h1>
+      <p class="tagline"><em>„Dva dny živé hudby, paměti a setkání"</em></p>
+      <div class="hero-meta">
+        <strong>31. července – 1. srpna 2026</strong>
+        <span>Letní amfiteátr U Řeky, Nábřežní 128, Brno</span>
+      </div>
+      <a href="#program" class="cta-btn" aria-label="Zobrazit program festivalu">Zobrazit program</a>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 36" preserveAspectRatio="none" width="100%" height="36">
+      <rect width="1200" height="36" fill="url(#romaniPattern)"></rect>
+    </svg>
+  </div>
+
+  <!-- Program -->
+  <section class="section" id="program" aria-labelledby="programHeading">
+    <div class="container">
+      <h2 class="section-title" id="programHeading">Program festivalu</h2>
+      <p class="section-lead">Kliknutím na interprety zobrazíte krátké bio. Program se vykresluje dynamicky z datového pole v JavaScriptu pro snadné budoucí úpravy.</p>
+      <div class="program-grid" id="programGrid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Místo konání -->
+  <section class="section" id="misto" aria-labelledby="mistoHeading">
+    <div class="container location-grid">
+      <div>
+        <h2 class="section-title" id="mistoHeading">Místo konání</h2>
+        <p class="section-lead">Festival proběhne v otevřeném areálu letního amfiteátru u řeky. Prostor kombinuje historické nádvoří a parkové zázemí s dostatkem stínu i míst k odpočinku.</p>
+        <div class="ornament-border info-card">
+          <h3>Letní amfiteátr U Řeky</h3>
+          <ul class="meta-list">
+            <li>Adresa: Nábřežní 128, 602 00 Brno</li>
+            <li>Pátek 31. 7.: vstup do areálu od 14:30</li>
+            <li>Sobota 1. 8.: vstup do areálu od 12:30</li>
+            <li>Info stánek: denně do 23:30</li>
+          </ul>
+        </div>
+      </div>
+      <div class="map-wrap" aria-label="Mapa místa konání">
+        <iframe
+          title="Mapa festivalového areálu"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Brno%20N%C3%A1b%C5%99e%C5%BEn%C3%AD%20128&output=embed">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ubytování -->
+  <section class="section" id="ubytovani" aria-labelledby="ubytovaniHeading">
+    <div class="container">
+      <h2 class="section-title" id="ubytovaniHeading">Ubytování</h2>
+      <p class="section-lead">Vyberte si styl pobytu podle rozpočtu. Všechny možnosti jsou dostupné pěšky nebo MHD.</p>
+      <div class="cards-grid">
+        <article class="ornament-border info-card">
+          <div class="icon-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 18h18v2H3zm2-8h14l2 6H3zm4-6h6l1 4H8z"/></svg>
+            <h3>Kempování na místě</h3>
+          </div>
+          <ul class="meta-list">
+            <li>Cena za noc: 250 Kč / osoba</li>
+            <li>Kapacita: 120 stanů</li>
+            <li>Vybavení: sociální zázemí a sprchy ANO</li>
+            <li>Vzdálenost: v areálu festivalu</li>
+            <li>Rezervace: kemp@giloraprodrom.cz</li>
+          </ul>
+          <a class="card-btn" href="mailto:kemp@giloraprodrom.cz" aria-label="Rezervovat kempování">Rezervovat</a>
+        </article>
+
+        <article class="ornament-border info-card">
+          <div class="icon-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 6h16v12H4zM2 4h20v16H2zm5 5h3v6H7zm7 0h3v6h-3z"/></svg>
+            <h3>Doporučené hostely</h3>
+          </div>
+          <ul class="meta-list">
+            <li>Hostel U Mlýna – 1,4 km – od 650 Kč/noc</li>
+            <li>Riverside Rooms – 2,1 km – od 780 Kč/noc</li>
+            <li>Komunitní dům Lužánky – 2,7 km – od 590 Kč/noc</li>
+          </ul>
+          <a class="card-btn" href="https://www.booking.com" target="_blank" rel="noopener" aria-label="Zjistit více o hostelech">Zjistit více</a>
+        </article>
+
+        <article class="ornament-border info-card">
+          <div class="icon-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 19h18v2H3zm2-2V7l7-4 7 4v10zm6-8h2v8h-2z"/></svg>
+            <h3>Hotely</h3>
+          </div>
+          <ul class="meta-list">
+            <li>Hotel Morava – 1,9 km – od 1 900 Kč/noc</li>
+            <li>Grand Terra Brno – 3,2 km – od 2 450 Kč/noc</li>
+          </ul>
+          <a class="card-btn" href="https://www.booking.com" target="_blank" rel="noopener" aria-label="Rezervovat hotel">Rezervovat</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jídlo a pití -->
+  <section class="section" id="jidlo" aria-labelledby="jidloHeading">
+    <div class="container">
+      <h2 class="section-title" id="jidloHeading">Jídlo a pití</h2>
+      <p class="section-lead">Od tradiční romské kuchyně po vegetariánské varianty. Většina stánků nabízí označení alergenů, platba možná hotově i kartou.</p>
+      <div class="food-grid">
+        <article class="ornament-border info-card">
+          <div class="icon-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h2v8H7zm4 0h2v8h-2zm4 0h2v8h-2zM6 12h12v10H6z"/></svg>
+            <h3>Čhavorikano Bistro</h3>
+          </div>
+          <p>Romská kuchyně: marikľa, halušky, pečená zelenina. Alergeny značené u každého jídla.</p>
+          <ul class="meta-list"><li>Otevřeno: Pá 15:00–23:00, So 13:00–23:00</li><li>Ceny: 120–240 Kč</li></ul>
+        </article>
+
+        <article class="ornament-border info-card">
+          <div class="icon-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16v2H4zm1 4h14l-1 12H6z"/></svg>
+            <h3>Zelený Kotel</h3>
+          </div>
+          <p>Vegetariánské a veganské porce, bezlaktózové varianty, jasně označené alergeny.</p>
+          <ul class="meta-list"><li>Otevřeno: Pá 16:00–22:00, So 14:00–22:30</li><li>Ceny: 110–220 Kč</li></ul>
+        </article>
+
+        <article class="ornament-border info-card">
+          <div class="icon-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 8h18l-2 12H5zm4-5h10v3H7z"/></svg>
+            <h3>Oheň &amp; Uhlí</h3>
+          </div>
+          <p>Grilování: špízy, kukuřice, tradiční kořeněné speciality. Možnosti i bez lepku.</p>
+          <ul class="meta-list"><li>Otevřeno: Pá 16:30–23:30, So 14:30–23:30</li><li>Ceny: 130–290 Kč</li></ul>
+        </article>
+
+        <article class="ornament-border info-card">
+          <div class="icon-heading">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 1 5 5c0 3-2 5-5 8-3-3-5-5-5-8a5 5 0 0 1 5-5m-6 15h12v5H6z"/></svg>
+            <h3>Nápoje &amp; Bar</h3>
+          </div>
+          <p>Nealko stánek i večerní bar. Dostupná voda zdarma u refill stanice.</p>
+          <ul class="meta-list"><li>Nealko: Pá+So 13:00–23:30</li><li>Bar: Pá 17:00–00:00, So 17:00–00:30</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Doprava -->
+  <section class="section" id="doprava" aria-labelledby="dopravaHeading">
+    <div class="container">
+      <h2 class="section-title" id="dopravaHeading">Doprava</h2>
+      <p class="section-lead">Rozklikněte jednotlivé možnosti dopravy. Accordion je ovladatelný klávesnicí (Enter / mezerník).</p>
+      <div class="accordion" id="transportAccordion">
+        <article class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="auto-panel" id="auto-trigger" aria-label="Rozbalit informace pro dopravu autem">
+            <span>Vlastní auto</span><span>+</span>
+          </button>
+          <div id="auto-panel" class="accordion-panel" role="region" aria-labelledby="auto-trigger">
+            <p>GPS: 49.1939, 16.6090 · Parkování P3 (kapacita 280 míst), 120 Kč/den, cca 4 min pěšky od areálu.</p>
+          </div>
+        </article>
+
+        <article class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="mhd-panel" id="mhd-trigger" aria-label="Rozbalit informace pro veřejnou dopravu">
+            <span>Veřejná doprava</span><span>+</span>
+          </button>
+          <div id="mhd-panel" class="accordion-panel" role="region" aria-labelledby="mhd-trigger">
+            <p>Zastávka: Výstaviště – hlavní vstup (tram 1, 4; bus 44/84). Spoje každých 8–12 min. Jízdní řády: <a href="https://www.idsjmk.cz" target="_blank" rel="noopener">idsjmk.cz</a>.</p>
+          </div>
+        </article>
+
+        <article class="accordion-item">
+          <button class="accordion-trigger" aria-expanded="false" aria-controls="bike-panel" id="bike-trigger" aria-label="Rozbalit informace pro kolo nebo pěšky">
+            <span>Kolo / pěšky</span><span>+</span>
+          </button>
+          <div id="bike-panel" class="accordion-panel" role="region" aria-labelledby="bike-trigger">
+            <p>Z centra Brna cca 2,6 km pěšky (35 min) nebo 12 min na kole. Stojany na kola: ANO (hlídané). Doporučená trasa vede po stezce podél Svratky.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Podpořte nás -->
+  <section class="section" id="podporte" aria-labelledby="podporteHeading">
+    <div class="container support-grid">
+      <div>
+        <h2 class="section-title" id="podporteHeading">Podpořte nás</h2>
+        <p class="section-lead">Festival je komunitní a neziskový. Příspěvky pomáhají financovat honoráře hudebníků, workshopy pro děti i bezbariérový provoz.</p>
+
+        <div class="amounts" role="group" aria-label="Volba částky daru">
+          <button class="amount-btn active" type="button" data-amount="100" aria-label="Darovat 100 korun">100 Kč</button>
+          <button class="amount-btn" type="button" data-amount="250" aria-label="Darovat 250 korun">250 Kč</button>
+          <button class="amount-btn" type="button" data-amount="500" aria-label="Darovat 500 korun">500 Kč</button>
+        </div>
+
+        <label for="customAmount">Vlastní částka (Kč)</label>
+        <input id="customAmount" class="input" type="number" min="1" step="1" inputmode="numeric" aria-label="Vlastní částka daru" placeholder="např. 750" />
+
+        <label for="donorMessage" style="display:block; margin-top:0.9rem;">Vzkaz dárce (volitelné)</label>
+        <textarea id="donorMessage" class="input" rows="3" aria-label="Vzkaz dárce" placeholder="Děkujeme, že držíte festival při životě."></textarea>
+
+        <button id="openGateway" class="chip-btn" type="button" aria-label="Otevřít platební bránu">Otevřít platební bránu</button>
+        <p class="support-note">Platební odkaz: darujme.cz/projekt/gilora-pro-drom (upravte podle finální brány).</p>
+      </div>
+
+      <div class="ornament-border qr-frame" aria-label="QR kód pro dar">
+        <svg viewBox="0 0 160 26" width="100%" height="26" aria-hidden="true"><rect width="160" height="26" fill="url(#romaniPattern)"></rect></svg>
+        <div id="qrcode"></div>
+        <strong id="qrAmountLabel">QR pro dar: 100 Kč</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer / Kontakt -->
+  <footer aria-labelledby="kontaktHeading">
+    <div class="container footer-grid">
+      <section>
+        <h2 class="section-title" id="kontaktHeading">Kontakt</h2>
+        <p>Organizační tým: <a href="mailto:info@giloraprodrom.cz">info@giloraprodrom.cz</a></p>
+        <div class="socials" aria-label="Sociální sítě">
+          <a class="social-link" href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook festivalu">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v4h4v-4h3.1l.9-4H13V9c0-.7.3-1 1-1z"/></svg>
+          </a>
+          <a class="social-link" href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram festivalu">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm11 1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title" style="font-size:1.65rem;">Partneři</h2>
+        <div class="partners">
+          <div class="partner-tile">Logo partnera</div>
+          <div class="partner-tile">Logo partnera</div>
+          <div class="partner-tile">Logo partnera</div>
+          <div class="partner-tile">Logo partnera</div>
+        </div>
+      </section>
+    </div>
+    <div class="container" style="margin-top:1.4rem; color:var(--color-text-secondary); font-size:0.92rem;">
+      © 2026 Gilora Pro Drom · Tradiční romský hudební festival
+    </div>
+  </footer>
+
+  <!-- Program bio modal -->
+  <div id="bioModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="bioTitle" aria-describedby="bioDesc">
+    <div class="modal-card">
+      <button id="closeModal" class="modal-close" type="button" aria-label="Zavřít bio interpreta">×</button>
+      <h3 id="bioTitle" class="modal-title"></h3>
+      <p id="bioSub" class="modal-sub"></p>
+      <p id="bioDesc"></p>
+    </div>
+  </div>
+
+  <!-- QR code dependency -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    // =====================
+    // Data: program festivalu
+    // =====================
+    // Poznámka: budoucí fotky interpretů lze doplnit a načítat lazy-loadingem.
+    const festivalProgram = [
+      {
+        day: 'Pátek 31. července',
+        entries: [
+          {
+            time: '16:00',
+            artist: 'Cigánske Struny',
+            genre: 'Tradiční romská hudba – housle a cimbál',
+            bio: 'Rodinný soubor z jižní Moravy navazuje na hudební linii předávanou čtyři generace. Repertoár staví na pomalých baladách i svižných tanečních motivech.'
+          },
+          {
+            time: '17:30',
+            artist: 'Luna del Camino',
+            genre: 'Flamenco-romský fusion',
+            bio: 'Česko-španělské trio propojuje flamenco compás s romskou melodikou. Vystoupení je postavené na akustické kytaře, cajónu a vícehlasu.'
+          },
+          {
+            time: '19:00',
+            artist: 'Přestávka',
+            genre: '—',
+            bio: 'Pauza na občerstvení, setkání s umělci a přípravu večerního bloku.'
+          },
+          {
+            time: '20:00',
+            artist: 'Karpatia Brass Collective',
+            genre: 'Balkánský brass + romské písně',
+            bio: 'Večerní headliner přináší energickou dechovou sekci a zpěv v romštině i češtině. Kapela hostovala na festivalech v Budapešti, Košicích i Praze.'
+          },
+          {
+            time: '22:00',
+            artist: 'Jam session – otevřené pódium',
+            genre: 'Vstup volný pro hudebníky',
+            bio: 'Otevřená improvizace pro profesionály i amatéry. Na místě je připravená základní aparatura a moderované střídání účastníků.'
+          }
+        ]
+      },
+      {
+        day: 'Sobota 1. srpna',
+        entries: [
+          {
+            time: '14:00',
+            artist: 'Workshop: romský tanec',
+            genre: 'Pro veřejnost, zdarma',
+            bio: 'Praktický workshop vedený tanečnicemi ze souboru Devleskere Kheleha. Vhodné i pro začátečníky od 10 let.'
+          },
+          {
+            time: '16:00',
+            artist: 'Marena Acoustic',
+            genre: 'Romská klasika – akusticky',
+            bio: 'Komorní set zaměřený na klasické romské písně v citlivém akustickém aranžmá. Důraz na hlas a strunné nástroje.'
+          },
+          {
+            time: '17:30',
+            artist: 'Mladí hlasy 2026',
+            genre: 'Mladí interpreti – soutěžní přehlídka',
+            bio: 'Přehlídka mladých talentů do 21 let s odbornou porotou i hlasováním publika. Vítěz získá rezidenční podporu na rok 2027.'
+          },
+          {
+            time: '19:00',
+            artist: 'Přestávka',
+            genre: '—',
+            bio: 'Pauza na občerstvení a přípravu závěrečného orchestru.'
+          },
+          {
+            time: '20:30',
+            artist: 'Orchestr Romano Drom',
+            genre: 'Romský orchestr',
+            bio: 'Sobotní headliner: rozšířený orchestr s dechovou, smyčcovou i rytmickou sekcí. Finální koncert spojuje tradiční i současné autorské skladby.'
+          },
+          {
+            time: '23:00',
+            artist: 'Konec programu',
+            genre: '—',
+            bio: 'Oficiální zakončení festivalu, poděkování partnerům a informace k odchodu z areálu.'
+          }
+        ]
+      }
+    ];
+
+    const donationBaseUrl = 'https://www.darujme.cz/projekt/1208910';
+
+    // =====================
+    // Program rendering
+    // =====================
+    const programGrid = document.getElementById('programGrid');
+    const bioModal = document.getElementById('bioModal');
+    const bioTitle = document.getElementById('bioTitle');
+    const bioSub = document.getElementById('bioSub');
+    const bioDesc = document.getElementById('bioDesc');
+    const closeModalBtn = document.getElementById('closeModal');
+    let lastFocusedElement = null;
+
+    festivalProgram.forEach((dayBlock) => {
+      const dayCard = document.createElement('article');
+      dayCard.className = 'ornament-border day-card';
+      dayCard.innerHTML = `<h3 class="day-title">${dayBlock.day}</h3><div class="program-list"></div>`;
+      const list = dayCard.querySelector('.program-list');
+
+      dayBlock.entries.forEach((entry) => {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'program-item';
+        item.setAttribute('aria-label', `Zobrazit bio: ${entry.artist}`);
+        item.innerHTML = `
+          <span class="program-time">${entry.time}</span>
+          <span class="program-name">${entry.artist}</span>
+          <span class="program-genre">${entry.genre}</span>
+        `;
+
+        item.addEventListener('click', () => openBio(entry));
+        list.appendChild(item);
+      });
+
+      programGrid.appendChild(dayCard);
+    });
+
+    function openBio(entry) {
+      lastFocusedElement = document.activeElement;
+      bioTitle.textContent = entry.artist;
+      bioSub.textContent = `${entry.time} · ${entry.genre}`;
+      bioDesc.textContent = entry.bio;
+      bioModal.classList.add('open');
+      closeModalBtn.focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBio() {
+      bioModal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    closeModalBtn.addEventListener('click', closeBio);
+    bioModal.addEventListener('click', (event) => {
+      if (event.target === bioModal) closeBio();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && bioModal.classList.contains('open')) {
+        closeBio();
+      }
+    });
+
+    // =====================
+    // Sticky nav + mobile nav
+    // =====================
+    const siteHeader = document.querySelector('.site-header');
+    const menuToggle = document.getElementById('menuToggle');
+    const mainMenu = document.getElementById('mainMenu');
+    const menuLinks = mainMenu.querySelectorAll('a');
+
+    function toggleMenu(forceOpen) {
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !mainMenu.classList.contains('open');
+      mainMenu.classList.toggle('open', shouldOpen);
+      menuToggle.setAttribute('aria-expanded', String(shouldOpen));
+    }
+
+    menuToggle.addEventListener('click', () => toggleMenu());
+
+    menuLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) toggleMenu(false);
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      siteHeader.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        mainMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // =====================
+    // Accordion
+    // =====================
+    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+
+    function setAccordionState(trigger, expand) {
+      const panel = document.getElementById(trigger.getAttribute('aria-controls'));
+      trigger.setAttribute('aria-expanded', String(expand));
+      trigger.querySelector('span:last-child').textContent = expand ? '−' : '+';
+      panel.style.maxHeight = expand ? `${panel.scrollHeight + 16}px` : '0px';
+    }
+
+    accordionTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+        setAccordionState(trigger, !expanded);
+      });
+
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          trigger.click();
+        }
+      });
+    });
+
+    // =====================
+    // Donation QR
+    // =====================
+    const qrTarget = document.getElementById('qrcode');
+    const qrAmountLabel = document.getElementById('qrAmountLabel');
+    const amountButtons = document.querySelectorAll('.amount-btn');
+    const customAmountInput = document.getElementById('customAmount');
+    const openGatewayBtn = document.getElementById('openGateway');
+
+    let qrCode = null;
+    if (typeof window.QRCode === 'function') {
+      qrCode = new QRCode(qrTarget, {
+        text: `${donationBaseUrl}?amount=100`,
+        width: 160,
+        height: 160,
+        colorDark: '#1A0A00',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    } else {
+      qrTarget.innerHTML = '<a href="' + donationBaseUrl + '?amount=100" target="_blank" rel="noopener" style="color:#1A0A00;font-weight:700;">Otevřít darovací odkaz</a>';
+    }
+
+    let selectedAmount = 100;
+
+    function updateQr(amount) {
+      selectedAmount = amount > 0 ? amount : 100;
+      const donationUrl = `${donationBaseUrl}?amount=${selectedAmount}`;
+      if (qrCode) {
+        qrCode.clear();
+        qrCode.makeCode(donationUrl);
+      } else {
+        qrTarget.innerHTML = '<a href="' + donationUrl + '" target="_blank" rel="noopener" style="color:#1A0A00;font-weight:700;">Otevřít darovací odkaz</a>';
+      }
+      qrAmountLabel.textContent = `QR pro dar: ${selectedAmount} Kč`;
+    }
+
+    amountButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        amountButtons.forEach((x) => x.classList.remove('active'));
+        btn.classList.add('active');
+        customAmountInput.value = '';
+        updateQr(Number(btn.dataset.amount));
+      });
+    });
+
+    customAmountInput.addEventListener('input', () => {
+      amountButtons.forEach((x) => x.classList.remove('active'));
+      const value = Number(customAmountInput.value);
+      if (Number.isFinite(value) && value > 0) updateQr(Math.floor(value));
+    });
+
+    openGatewayBtn.addEventListener('click', () => {
+      window.open(`${donationBaseUrl}?amount=${selectedAmount}`, '_blank', 'noopener');
+    });
+  </script>
+</body>
+</html>
