@@ -1399,6 +1399,13 @@
     function renderQr(amount) {
       const donationUrl = buildDonationUrl(amount);
       directDonateLink.href = donationUrl;
+
+      if (typeof window.QRCode !== "function") {
+        qrCodeContainer.innerHTML = "<p style=\"margin:0; text-align:center; color:#1A0A00; font-size:0.9rem;\">QR modul se nepodařilo načíst.<br>Zkuste prosím přímý odkaz.</p>";
+        qrCodeInstance = null;
+        return;
+      }
+
       if (qrCodeInstance && typeof qrCodeInstance.clear === "function") {
         qrCodeInstance.clear();
       }
@@ -1428,7 +1435,7 @@
     customAmountInput.addEventListener("input", () => {
       amountButtons.forEach((btn) => btn.classList.remove("active"));
       const amount = Number(customAmountInput.value);
-      selectedAmount = Number.isFinite(amount) && amount > 0 ? amount : 100;
+      selectedAmount = Number.isFinite(amount) && amount > 0 ? Math.floor(amount) : 100;
       renderQr(selectedAmount);
     });
 
